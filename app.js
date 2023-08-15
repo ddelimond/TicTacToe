@@ -22,6 +22,9 @@ gameBoard = (function(){
 
 
 gameController = (function(){
+    let player1 = Player("Darren", "X");
+    let player2 = Player("Brenda", "O");
+    let players = [player1, player2];
 
  function start(){
     gameBoard.render();
@@ -39,6 +42,14 @@ gameController = (function(){
         start
     }
 })()
+
+
+function Player(name, marker){
+    return {
+        name,
+        marker
+    }
+}
 
 document.querySelector(".startBtn").addEventListener("click", gameController.start)
 
