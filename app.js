@@ -6,17 +6,22 @@ gameBoard = (function(){
      function render(){
         boardContainer = document.querySelector(".gameBoard");
 
-        boardSpots.forEach((space, index) =>{
-            boardHTML+=`<div class="gameSpot" id="index-${index}">${space}</div>`
-        });
-        boardContainer.innerHTML = boardHTML;
-        console.log(boardContainer)
+         boardContainer.innerHTML = boardSpots.map((space, index) =>{
+                return `<div class="gameSpot" id="index-${index}">${space}</div>`
+        }).join("");
+    }
+
+
+    function markPlayerMove(spotIndex, playerMarker){
+      boardSpots[spotIndex] = playerMarker;
+      console.log(boardSpots)
     }
 
 
 
     return{
         render,
+        markPlayerMove
     }
 })()
 
@@ -24,22 +29,101 @@ gameBoard = (function(){
 gameController = (function(){
     let player1 = Player("Darren", "X");
     let player2 = Player("Brenda", "O");
-    let players = [player1, player2];
+    let activePlayer;
+    let turn = 1;
+    let gameRound = 1;
+    let player1Score = 0;
+    let player2Score = 0;
 
  function start(){
     gameBoard.render();
      let boardSpots = document.querySelectorAll(".gameSpot");
      boardSpots.forEach((spot)=>{
-         spot.addEventListener("click", (e)=>{
-             console.log(parseInt(e.target.id.split("index-")[1]))
-         })
+         spot.addEventListener("click", updateGameBoard);
      })
 }
 
 
+function whosTurnIsIt(){
+     switch(turn){
+         case 1:
+             activePlayer = player1;
+             break;
+         case 2:
+             activePlayer = player2;
+             break;
+         case 3:
+             activePlayer = player1;
+             break;
+         case 4:
+             activePlayer = player2;
+             break;
+         case 5:
+             activePlayer = player1;
+             break;
+         case 6:
+             activePlayer = player2;
+             break;
+         case 7:
+             activePlayer = player1;
+             break;
+         case 8:
+             activePlayer = player2;
+             break;
+         case 9:
+             activePlayer = player1;
+             break;
+     }
+}
+
+function gameOver(){
+     return true;
+
+    }
+
+function endTurn(){
+     turn<9?turn++:gameOver();
+}
+
+function getPlayer1Score() {
+    return player1Score;
+}
+
+
+function getPlayer2Score(){
+        return  player2Score;
+ }
+
+ function getRound(){
+     return gameRound;
+ }
+
+    function setRound(){
+        return gameRound++;
+    }
+
+
+
+
+function updateGameBoard(e){
+     whosTurnIsIt();
+     let selectedSpotIndex = parseInt(e.target.id.split("-")[1]);
+    let activePlayerMarker = activePlayer.marker;
+    gameBoard.markPlayerMove(selectedSpotIndex,activePlayerMarker);
+    gameBoard.render();
+    endTurn();
+    }
+
+
+
+
+
 
     return{
-        start
+        start,
+        getRound,
+        getPlayer1Score,
+        getPlayer2Score
     }
 })()
 
@@ -52,4 +136,3 @@ function Player(name, marker){
 }
 
 document.querySelector(".startBtn").addEventListener("click", gameController.start)
-
