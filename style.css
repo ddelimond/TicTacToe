@@ -21,4 +21,7 @@
     height: 150px;
     max-height: 150px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

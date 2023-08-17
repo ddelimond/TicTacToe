@@ -7,14 +7,14 @@ gameBoard = (function(){
         boardContainer = document.querySelector(".gameBoard");
 
          boardContainer.innerHTML = boardSpots.map((space, index) =>{
-                return `<div class="gameSpot" id="index-${index}">${space}</div>`
+                return `<button class="gameSpot" id="index-${index}">${space}</button>`
         }).join("");
     }
 
 
     function markPlayerMove(spotIndex, playerMarker){
       boardSpots[spotIndex] = playerMarker;
-      console.log(boardSpots)
+      console.log(boardSpots);
     }
 
 
@@ -37,10 +37,15 @@ gameController = (function(){
 
  function start(){
     gameBoard.render();
-     let boardSpots = document.querySelectorAll(".gameSpot");
-     boardSpots.forEach((spot)=>{
-         spot.addEventListener("click", updateGameBoard);
-     })
+    setGameSpotsEventListeners();
+}
+
+
+function setGameSpotsEventListeners(){
+    let boardSpots = document.querySelectorAll(".gameSpot");
+    boardSpots.forEach((spot)=>{
+        spot.addEventListener("click", updateGameBoard);
+    });
 }
 
 
@@ -111,6 +116,7 @@ function updateGameBoard(e){
     let activePlayerMarker = activePlayer.marker;
     gameBoard.markPlayerMove(selectedSpotIndex,activePlayerMarker);
     gameBoard.render();
+    setGameSpotsEventListeners();
     endTurn();
     }
 
@@ -123,7 +129,8 @@ function updateGameBoard(e){
         start,
         getRound,
         getPlayer1Score,
-        getPlayer2Score
+        getPlayer2Score,
+        updateGameBoard
     }
 })()
 
