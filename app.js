@@ -15,16 +15,25 @@ gameBoard = (function(){
       boardSpots[spotIndex] = playerMarker;
       let mark = document.createTextNode(`${playerMarker}`);
       document.getElementById(`index-${spotIndex}`).append(mark);
-}
+     }
 
-function getMarkedSpotsArr(){
+     function getBoardSpots(){
       return boardSpots;
-}
+     }
+
+    function resetBoardSpots(){
+         boardSpots = ["","","","","","", "","",""];
+         render();
+    }
+
+
+
 
     return{
         render,
         markPlayerMove,
-        getMarkedSpotsArr
+        getBoardSpots,
+        resetBoardSpots
     }
 })()
 
@@ -38,9 +47,9 @@ gameController = (function(){
     let player1Score = 0;
     let player2Score = 0;
 
- function start(){
-    gameBoard.render();
-    setGameSpotsEventListeners();
+ function startGame(){
+        gameBoard.render();
+        setGameSpotsEventListeners();
 }
 
 
@@ -84,14 +93,6 @@ function whosTurnIsIt(){
      }
 }
 
-function gameOver(){
-     return true;
-
-    }
-
-function endTurn(){
-     turn<9?turn++:gameOver();
-}
 
 function getPlayer1Score() {
     return player1Score;
@@ -107,13 +108,100 @@ function getPlayer2Score(){
  }
 
     function setRound(){
-        return gameRound++;
+         gameRound++;
+    }
+
+    function setPlayer1Score() {
+         player1Score++;
+    }
+
+    function setPlayer2Score() {
+        return player2Score++;
+    }
+
+    function declareGameWinner(){
+     player1Score === 3?console.log(`${player1.name} has won the game`):console.log(`${player1.name} has won the game`);
     }
 
 
+    function winningConditionalStatement(index1,index2,index3, marker){
+        let markedSpotsArr = gameBoard.getBoardSpots();
+        return gameBoard.getBoardSpots()[index1] === marker && gameBoard.getBoardSpots()[index2] === marker && gameBoard.getBoardSpots()[index3] === marker;
+    }
+
+    function addToWinningPlayerScore(marker){
+     if(player1Score<3 && player2Score<3){
+         if (player1.marker === marker) {
+             setPlayer1Score();
+             console.log(`the winner of the round was ${player1.name}`);
+             nextRound();
+         }
+         else {
+             setPlayer2Score();
+             console.log(`the winner of the round was ${player2.name}`);
+             nextRound();
+         }
+     }else{
+        declareGameWinner();
+     }
+    }
+
+    function determineRoundWinner(playerMarker) {
+        if (winningConditionalStatement(0, 1, 2, playerMarker)) {
+            addToWinningPlayerScore(playerMarker);
+        } else if (winningConditionalStatement(3, 4, 5, playerMarker)) {
+            addToWinningPlayerScore(playerMarker);
+        } else if (winningConditionalStatement(6, 7, 8, playerMarker)) {
+            addToWinningPlayerScore(playerMarker);
+        } else if (winningConditionalStatement(0, 3, 6, playerMarker)) {
+            addToWinningPlayerScore(playerMarker);
+        } else if (winningConditionalStatement(1, 4, 7, playerMarker)) {
+            addToWinningPlayerScore(playerMarker);
+        } else if (winningConditionalStatement(2, 5, 8, playerMarker)) {
+            addToWinningPlayerScore(playerMarker);
+        } else if (winningConditionalStatement(0, 4, 8, playerMarker)) {
+            addToWinningPlayerScore(playerMarker);
+        } else if (winningConditionalStatement(2, 4, 6, playerMarker)) {
+            addToWinningPlayerScore(playerMarker);
+        } else {
+
+            endTurn();
+        }
+    }
 
 
-function updateGameBoard(e){
+    function endTurn(){
+        if( turn < 9 ){
+            turn++;
+        }
+        else{
+            playersTie();
+            gameOver();
+        }
+    }
+
+    function nextRound(){
+        setRound();
+        turn = 1;
+        console.log(getPlayer2Score());
+        console.log(getPlayer1Score());
+        gameBoard.resetBoardSpots();
+        setGameSpotsEventListeners();
+    }
+
+    function gameOver(){
+        console.log("the game is over");
+        nextRound();
+        return true;
+    }
+
+
+    function playersTie(){
+        console.log("It Was a Draw, Next Round!");
+    }
+
+
+    function updateGameBoard(e){
      whosTurnIsIt();
      let selectedSpotIndex = parseInt(e.target.id.split("-")[1]);
      let activePlayerMarker = activePlayer.marker;
@@ -121,51 +209,13 @@ function updateGameBoard(e){
      gameBoard.markPlayerMove(selectedSpotIndex,activePlayerMarker);
      gameBoardSpot.classList.add("marked");
      gameBoardSpot.removeEventListener('click',updateGameBoard);
-    endTurn();
-    determineWinner(activePlayerMarker);
+     determineRoundWinner(activePlayerMarker);
     }
 
-
-    function winningConditionalStatement(index1,index2,index3, marker){
-        let markedSpotsArr = gameBoard.getMarkedSpotsArr();
-        return gameBoard.getMarkedSpotsArr()[index1] === marker && gameBoard.getMarkedSpotsArr()[index2] === marker && gameBoard.getMarkedSpotsArr()[index3] === marker;
-    }
-
-    function getWinnersName(marker){
-     return player1.marker === marker? console.log(`Winner is ${player1.name}`):console.log(`Winner is ${player2.name}`);
-    }
-
-    function determineWinner(playerMarker){
-    console.log(playerMarker)
-     if(winningConditionalStatement(0,1,2, playerMarker)){
-     return getWinnersName(playerMarker);
-    }
-    else if(winningConditionalStatement(3,4,5, playerMarker)){
-        return getWinnersName(playerMarker);
-     }
-     else if(winningConditionalStatement(6,7,8, playerMarker)){
-         return getWinnersName(playerMarker);
-     }
-     else if(winningConditionalStatement(0,3,6, playerMarker)){
-         return getWinnersName(playerMarker);
-     }
-     else if(winningConditionalStatement(1,4,7, playerMarker)){
-         return getWinnersName(playerMarker);
-     }
-     else if(winningConditionalStatement(2,5,8, playerMarker)){
-         return getWinnersName(playerMarker);
-     }
-     else if(winningConditionalStatement(0,4,8, playerMarker)){
-         return getWinnersName(playerMarker);
-     }
-     else if(winningConditionalStatement(2,4,6, playerMarker)){
-         return getWinnersName(playerMarker);
-     }
-}
 
 
     return{
-        start,
+        startGame,
         getRound,
         getPlayer1Score,
         getPlayer2Score,
@@ -181,7 +231,7 @@ function Player(name, marker){
     }
 }
 
-document.querySelector(".startBtn").addEventListener("click", gameController.start)
+document.querySelector(".startBtn").addEventListener("click", gameController.startGame)
 
 
 
