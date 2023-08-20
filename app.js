@@ -51,6 +51,15 @@ gameController = (function(){
         gameBoard.render();
         setGameSpotsEventListeners();
 }
+function replayGame(){
+    turn = 1;
+    gameRound = 1;
+    player1Score = 0;
+    player2Score = 0;
+    gameBoard.resetBoardSpots();
+    gameBoard.render();
+    setGameSpotsEventListeners();
+}
 
 
 function setGameSpotsEventListeners(){
@@ -230,7 +239,8 @@ function getPlayer2Score(){
         getRound,
         getPlayer1Score,
         getPlayer2Score,
-        updateGameBoard
+        updateGameBoard,
+        replayGame
     }
 })()
 
@@ -242,7 +252,8 @@ function Player(name, marker){
     }
 }
 
-document.querySelector(".startBtn").addEventListener("click", gameController.startGame)
+document.querySelector(".startBtn").addEventListener("click", gameController.startGame);
+document.querySelector(".replayBtn").addEventListener("click", gameController.replayGame);
 
 
 
