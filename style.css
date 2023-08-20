@@ -24,4 +24,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all ease-in 300ms;
+    font-size: 5rem;
+}
+
+.gameSpot:hover{
+    transform: scale(1.1);
+}
+
+.marked{
+    cursor: not-allowed !important;
+}
+.marked:hover{
+    transform: scale(1.1);
 }
