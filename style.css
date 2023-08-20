@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+.gameBoard{
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 150px);
+    gap: 20px;
+    transition: all ease-in .4s;
+    transform: scale(1);
+}
+
+.gameSpot{
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 150px;
+    max-width: 150px;
+    height: 150px;
+    max-height: 150px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
