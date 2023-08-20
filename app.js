@@ -60,6 +60,13 @@ function setGameSpotsEventListeners(){
     });
 }
 
+    function removeGameSpotsEventListeners(){
+        let boardSpots = document.querySelectorAll(".gameSpot");
+        boardSpots.forEach((spot)=>{
+            spot.removeEventListener("click", updateGameBoard);
+        });
+    }
+
 
 function whosTurnIsIt(){
      switch(turn){
@@ -130,20 +137,19 @@ function getPlayer2Score(){
     }
 
     function addToWinningPlayerScore(marker){
-     if(player1Score<3 && player2Score<3){
          if (player1.marker === marker) {
              setPlayer1Score();
-             console.log(`the winner of the round was ${player1.name}`);
+             let round = getRound();
+             console.log(`the winner of round ${round} was ${player1.name}`);
              nextRound();
          }
          else {
              setPlayer2Score();
-             console.log(`the winner of the round was ${player2.name}`);
+             let round = getRound();
+             console.log(`the winner of round ${round} was ${player2.name}`);
              nextRound();
          }
-     }else{
-        declareGameWinner();
-     }
+
     }
 
     function determineRoundWinner(playerMarker) {
@@ -181,12 +187,17 @@ function getPlayer2Score(){
     }
 
     function nextRound(){
-        setRound();
-        turn = 1;
-        console.log(getPlayer2Score());
-        console.log(getPlayer1Score());
-        gameBoard.resetBoardSpots();
-        setGameSpotsEventListeners();
+        if(player1Score<3 && player2Score<3){
+            setRound();
+            turn = 1;
+            console.log(getPlayer2Score());
+            console.log(getPlayer1Score());
+            gameBoard.resetBoardSpots();
+            setGameSpotsEventListeners();
+        }else{
+            removeGameSpotsEventListeners();
+            declareGameWinner();
+        }
     }
 
     function gameOver(){
