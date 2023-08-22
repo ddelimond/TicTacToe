@@ -1,8 +1,8 @@
-*{
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+
 }
 
 .startContainer{
@@ -81,7 +81,7 @@
     align-items: center;
     flex-direction: column;
     gap: 20px;
-   border-radius: 15px;
+    border-radius: 15px;
     /*border: 1px solid black ;*/
     padding: 20px;
     height: 250px;
@@ -95,12 +95,89 @@
     text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 2px rgba(206,89,55,0);
 }
 
-.markerContainer{
+.startBtn{
+    width: 300px;
     height: 90px;
-    width:90%;
-    padding: 15px;
-    border: 1px solid black;
+    min-height: 90px;
+    border-radius: 20px;
+    transition: all ease-in 100ms;
+    background: rgb(255,255,255);
+    background: -moz-radial-gradient(center, rgb(255,255,255) 0%, rgb(132,174,161) 57%, rgb(88,117,108) 100%);
+    background: -webkit-radial-gradient(center, rgb(255,255,255) 0%, rgb(132,174,161) 57%, rgb(88,117,108) 100%);
+    background: radial-gradient(ellipse at center, rgb(255,255,255) 0%, rgb(132,174,161) 57%, rgb(88,117,108) 100%);
+    text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 2px rgba(206,89,55,0);
+    color: black;
+    font-family: 'Alfa Slab One', sans-serif;
+    font-size: 1.5em;
+    letter-spacing: 3px;
+    cursor: pointer;
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 7s;
+    -moz-transition-property: -moz-transform background-color;
+    -moz-transition-duration: 7s;
+    -webkit-animation-name: grow;
+    -webkit-animation-duration: 11s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: grow;
+    -moz-animation-duration: 11s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+}
+
+@-webkit-keyframes grow {
+    0% { transform: scale(1); }
+    50% { transform: scale(4); background-color: red; border-radius: 0px; }
+    100% { transform: scale(1); }
+}
+
+.startBtn:active{
+    transform: scale(.9);
+}
+
+.markerContainer{
+    display: flex;
+    flex-direction: row;
+    height: 90px;
+    width:70%;
+    padding: 10px;
     border-radius: 10px;
+    background: #a3493b;
+    -webkit-box-shadow: 0px 5px 14px 5px #848484;
+    box-shadow: 0px 5px 14px 5px #848484;
+}
+
+.markSelection{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    align-items: center;
+    transition: all ease-in 300ms;
+    padding-bottom: 35px;
+    cursor: pointer;
+    font-family: 'Outfit',sans-serif;
+    font-size: 8rem;
+    font-weight: 900;
+    text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 2px rgba(206,89,55,0);text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 2px rgba(206,89,55,0);
+}
+
+.X{
+  color: rgb(245, 240, 157); !important;
+}
+
+.O{
+ color: #E08D96 !important;
+}
+
+.markSelection:hover{
+    transform: scale(1.08);
+}
+.selected{
+    /*background: rgb(255,255,255) !important;*/
+    background: -moz-linear-gradient(-45deg, rgb(255,255,255) 0%, rgb(132,174,161) 47%, rgb(88,117,108) 100%) !important;
+    background: -webkit-linear-gradient(-45deg, rgb(255,255,255) 0%, rgb(132,174,161) 47%, rgb(88,117,108) 100%) !important;
+    background: linear-gradient(135deg, rgb(255,255,255) 0%, rgb(132,174,161) 47%, rgb(88,117,108) 100%) !important;
 }
 
 /*'Nabla','Akronim','Moul','Peralta','Rubik Mono One',*/
