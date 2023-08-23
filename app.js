@@ -51,6 +51,15 @@ gameController = (function(){
         gameBoard.render();
         setGameSpotsEventListeners();
 }
+function replayGame(){
+    turn = 1;
+    gameRound = 1;
+    player1Score = 0;
+    player2Score = 0;
+    gameBoard.resetBoardSpots();
+    gameBoard.render();
+    setGameSpotsEventListeners();
+}
 
 
 function setGameSpotsEventListeners(){
@@ -230,7 +239,8 @@ function getPlayer2Score(){
         getRound,
         getPlayer1Score,
         getPlayer2Score,
-        updateGameBoard
+        updateGameBoard,
+        replayGame
     }
 })()
 
@@ -242,7 +252,37 @@ function Player(name, marker){
     }
 }
 
-document.querySelector(".startBtn").addEventListener("click", gameController.startGame)
+function chooseMarker(e){
+  let selectedMarker = e.target;
+
+
+  if(selectedMarker.classList.contains('selected') === false && selectedMarker.textContent === 'x'){
+
+      document.querySelector('.O').classList.remove('selected');
+      document.querySelector('.O').style = 'rgb(163, 73, 59)';
+      selectedMarker.style.background = 'rgb(255,255,255)';
+      selectedMarker.classList.add('selected');
+       console.log(selectedMarker.textContent);
+
+  }else if(selectedMarker.classList.contains('selected') === false && selectedMarker.textContent === 'o'){
+      document.querySelector('.X').classList.remove('selected');
+      document.querySelector('.X').style = 'rgb(163, 73, 59)';
+      selectedMarker.style.background = 'rgb(255,255,255)';
+      selectedMarker.classList.add('selected');
+      console.log( selectedMarker.textContent);
+
+  }else{
+
+     console.log(selectedMarker.textContent);
+
+  }
+
+
+
+}
+document.querySelector('.markerContainer').addEventListener('click',chooseMarker );
+document.querySelector(".startBtn").addEventListener('click', gameController.startGame);
+// document.querySelector(".replayBtn").addEventListener('click', gameController.replayGame);
 
 
 
