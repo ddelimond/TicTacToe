@@ -1,4 +1,4 @@
-{
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -18,6 +18,7 @@
     background: -moz-linear-gradient(left, rgb(255,240,217) 0%, rgb(236,222,201) 47%, rgb(201,189,171) 100%);
     background: -webkit-linear-gradient(left, rgb(255,240,217) 0%, rgb(236,222,201) 47%, rgb(201,189,171) 100%);
     background: linear-gradient(to right, rgb(255,240,217) 0%, rgb(236,222,201) 47%, rgb(201,189,171) 100%);
+    position: relative;
 }
 
 .logoContainer{
@@ -99,7 +100,7 @@
     width: 300px;
     height: 90px;
     min-height: 90px;
-    border-radius: 20px;
+    border-radius: 25px;
     transition: all ease-in 100ms;
     background: rgb(255,255,255);
     background: -moz-radial-gradient(center, rgb(255,255,255) 0%, rgb(132,174,161) 57%, rgb(88,117,108) 100%);
@@ -111,29 +112,69 @@
     font-size: 1.5em;
     letter-spacing: 3px;
     cursor: pointer;
-    -webkit-transition-property: -webkit-transform;
-    -webkit-transition-duration: 7s;
-    -moz-transition-property: -moz-transform background-color;
-    -moz-transition-duration: 7s;
-    -webkit-animation-name: grow;
-    -webkit-animation-duration: 11s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    -moz-animation-name: grow;
-    -moz-animation-duration: 11s;
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-timing-function: linear;
 }
 
-@-webkit-keyframes grow {
-    0% { transform: scale(1); }
-    50% { transform: scale(4); background-color: red; border-radius: 0px; }
-    100% { transform: scale(1); }
-}
-
-.startBtn:active{
+.startBtn:active, .gameSpot:active{
     transform: scale(.9);
 }
+
+
+
+
+
+.popout {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(236, 236, 236,.5);
+    font-size: 10rem;
+    padding: 15px;
+    z-index: 5;
+}
+
+
+.roundContent{
+    animation: 4s anim-popout ease ;
+    font-family: 'Paytone One', 'Rubik Mono One', sans-serif;
+    color: rgb(132,174,161);
+    text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 2px rgba(206,89,55,0);
+
+}
+
+@keyframes anim-popout {
+    0% {
+        color: rgb(132,174,161);
+        transform: scale(0);
+        opacity: 0;
+        text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 2px rgba(206,89,55,0);
+    }
+    25% {
+        color: rgb(132,174,161);
+        transform: scale(2);
+        opacity: 1;
+        text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 2px rgba(206,89,55,0);
+    }
+    50% {
+        color: rgb(132,174,161);
+        transform: scale(1);
+        opacity: 1;
+        text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 2px rgba(206,89,55,0);
+    }
+    100% {
+        /* animate nothing to add pause at the end of animation */
+        transform: scale(1);
+        opacity: 1;
+        text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 2px rgba(206,89,55,0);
+    }
+}
+
 
 .markerContainer{
     display: flex;
@@ -151,23 +192,32 @@
     width: 50%;
     display: flex;
     justify-content: center;
+    background: none;
+    border: none;
     border-radius: 10px;
     align-items: center;
     transition: all ease-in 300ms;
     padding-bottom: 35px;
     cursor: pointer;
+    font-size: 6rem;
+}
+
+.markSelection:hover{
+    background: none;
+}
+
+.markSelection, .gameSpot{
     font-family: 'Outfit',sans-serif;
-    font-size: 8rem;
     font-weight: 900;
     text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 2px rgba(206,89,55,0);text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 2px rgba(206,89,55,0);
 }
 
 .X{
-  color: rgb(245, 240, 157); !important;
+    color: rgb(245, 240, 157) !important;
 }
 
 .O{
- color: #E08D96 !important;
+    color: #E08D96 !important;
 }
 
 .markSelection:hover{
@@ -183,6 +233,8 @@
 /*'Nabla','Akronim','Moul','Peralta','Rubik Mono One',*/
 /*'Jacques+Francois+Shadow','Paytone One','ZCOOL KuaiLe',*/
 
+
+
 .gameBoard{
     display: grid;
     grid-template-columns: repeat(3, 150px);
@@ -190,10 +242,16 @@
     gap: 20px;
     transition: all ease-in .4s;
     transform: scale(1);
+    padding: 10px;
+    background: #4f2d28;
+    border: 50px solid #a3493b;
+    border-radius: 30px;
+    -webkit-box-shadow: 1px 7px 15px 0px #000000;
+    box-shadow: 1px 7px 15px 0px #000000;
 }
 
 .gameSpot{
-    border: 1px solid black;
+    border: none;
     border-radius: 15px;
     width: 150px;
     max-width: 150px;
@@ -203,17 +261,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all ease-in 300ms;
-    font-size: 5rem;
+    transition: all ease-in 100ms;
+    font-size: 9rem;
+    background: rgb(88,117,108);
+    -webkit-box-shadow: 4px 11px 15px 0px #000000;
+    box-shadow: 4px 11px 15px 0px #000000;
 }
 
 .gameSpot:hover{
-    transform: scale(1.1);
+    background-color: rgb(88,117,108);
 }
 
 .marked{
     cursor: not-allowed !important;
-}
-.marked:hover{
-    transform: scale(1.1);
 }

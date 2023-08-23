@@ -1,33 +1,85 @@
 gameBoard = (function(){
+
+
+    // GameBoard Variables
+
     let boardSpots=["","","","","","", "","",""]
     let boardContainer;
     let boardHTML = "";
 
-     function render(){
-        boardContainer = document.querySelector(".gameBoard");
 
-         boardContainer.innerHTML = boardSpots.map((space, index) =>{
-                return `<div class="gameSpot" id="index-${index}">${space}</div>`
-        }).join("");
+
+    // Render round function creates an element to display the players current round on the DOM
+    function renderRound(){
+
+        let roundElement = `<div class="popout">
+                <div class="roundContent">Round ${gameController.getRound()}</div
+                </div>`
+
+        document.querySelector('.startContainer').innerHTML = roundElement;
     }
+
+    // This function selects the start container and places the gameBoard in it,
+    function populateBoard(){
+        let startContainer = document.querySelector('.startContainer');
+        startContainer.innerHTML = gameBoardHTML();
+        boardContainer = document.querySelector(".gameBoard");
+        boardContainer.innerHTML = boardSpots.map((space, index) =>{
+            return `<button class="gameSpot" id="index-${index}">${space}</button>`
+        }).join("");
+
+        // EventListeners for replay button
+        document.querySelector(".replayBtn").addEventListener('click', gameController.replayGame);
+    }
+
+    // This function triggers the round to appear then populates the game board once the round animation completes
+    function render(){
+        renderRound();
+        setTimeout(populateBoard,4000);
+    }
+
+    // this function returns the html code for the gameboard, this function is to be used in the populateBoard function
+    function gameBoardHTML(){
+        return `<section class="gameBoardContainer">
+        <header>
+             <div class="logoContainer">
+                  <img src="" class="logo" alt="">
+               </div>
+             <div class="turnIndicator">players marker Turn</div>
+              <button type="button" class="replayBtn"><i class="fa-solid fa-rotate-right"></i></button>
+           </header>
+           <main class="gameBoard">
+       </main>
+       </section>`
+    }
+
+    // this function takes the index of the selected gamespot and grabs the marker of the active player, once
+    // the player selects a spot the index is retrieved from the gamespot, the users marker is taken from their player objecvt
+    // an a text node is created with it, lastly the marker node is placed in the selected boardspot to appear in the DOM
 
     function markPlayerMove(spotIndex, playerMarker){
-      boardSpots[spotIndex] = playerMarker;
-      let mark = document.createTextNode(`${playerMarker}`);
-      document.getElementById(`index-${spotIndex}`).append(mark);
-     }
+        // takes the boardspot array and add the players marker in it  to document where the player has chosen to move
+        boardSpots[spotIndex] = playerMarker;
 
-     function getBoardSpots(){
-      return boardSpots;
-     }
+        // creates a text node to add to the gamespot of the active players marker (X or O )
+        let mark = document.createTextNode(`${playerMarker}`);
 
-    function resetBoardSpots(){
-         boardSpots = ["","","","","","", "","",""];
-         render();
+        // selects the space that the user selected and adds the mark in that spot
+        document.getElementById(`index-${spotIndex}`).append(mark);
     }
 
 
+    // returns the gamespot arr that keeps track or each places move and where it is placed on the gameboard
+    function getBoardSpots(){
+        return boardSpots;
+    }
 
+    // function that resets an empties the gameboard arr  to get ready for a new round and renders a new blank, this should be used with
+    // the next round function
+    function resetBoardSpots(){
+        boardSpots = ["","","","","","", "","",""];
+        render();
+    }
 
     return{
         render,
@@ -47,27 +99,27 @@ gameController = (function(){
     let player1Score = 0;
     let player2Score = 0;
 
- function startGame(){
+    function startGame(){
+        setTimeout(gameBoard.render,500);
+        setGameSpotsEventListeners();
+    }
+    function replayGame(){
+        turn = 1;
+        gameRound = 1;
+        player1Score = 0;
+        player2Score = 0;
+        gameBoard.resetBoardSpots();
         gameBoard.render();
         setGameSpotsEventListeners();
-}
-function replayGame(){
-    turn = 1;
-    gameRound = 1;
-    player1Score = 0;
-    player2Score = 0;
-    gameBoard.resetBoardSpots();
-    gameBoard.render();
-    setGameSpotsEventListeners();
-}
+    }
 
 
-function setGameSpotsEventListeners(){
-    let boardSpots = document.querySelectorAll(".gameSpot");
-    boardSpots.forEach((spot)=>{
-        spot.addEventListener("click", updateGameBoard);
-    });
-}
+    function setGameSpotsEventListeners(){
+        let boardSpots = document.querySelectorAll(".gameSpot");
+        boardSpots.forEach((spot)=>{
+            spot.addEventListener("click", updateGameBoard);
+        });
+    }
 
     function removeGameSpotsEventListeners(){
         let boardSpots = document.querySelectorAll(".gameSpot");
@@ -77,58 +129,58 @@ function setGameSpotsEventListeners(){
     }
 
 
-function whosTurnIsIt(){
-     switch(turn){
-         case 1:
-             activePlayer = player1;
-             break;
-         case 2:
-             activePlayer = player2;
-             break;
-         case 3:
-             activePlayer = player1;
-             break;
-         case 4:
-             activePlayer = player2;
-             break;
-         case 5:
-             activePlayer = player1;
-             break;
-         case 6:
-             activePlayer = player2;
-             break;
-         case 7:
-             activePlayer = player1;
-             break;
-         case 8:
-             activePlayer = player2;
-             break;
-         case 9:
-             activePlayer = player1;
-             break;
-     }
-}
+    function whosTurnIsIt(){
+        switch(turn){
+            case 1:
+                activePlayer = player1;
+                break;
+            case 2:
+                activePlayer = player2;
+                break;
+            case 3:
+                activePlayer = player1;
+                break;
+            case 4:
+                activePlayer = player2;
+                break;
+            case 5:
+                activePlayer = player1;
+                break;
+            case 6:
+                activePlayer = player2;
+                break;
+            case 7:
+                activePlayer = player1;
+                break;
+            case 8:
+                activePlayer = player2;
+                break;
+            case 9:
+                activePlayer = player1;
+                break;
+        }
+    }
 
 
-function getPlayer1Score() {
-    return player1Score;
-}
+    function getPlayer1Score() {
+        return player1Score;
+    }
 
 
-function getPlayer2Score(){
+    function getPlayer2Score(){
         return  player2Score;
- }
+    }
 
- function getRound(){
-     return gameRound;
- }
+    function getRound(){
+        return gameRound;
+    }
 
     function setRound(){
-         gameRound++;
+        gameRound++;
     }
 
     function setPlayer1Score() {
-         player1Score++;
+        player1Score++;
     }
 
     function setPlayer2Score() {
@@ -136,7 +188,7 @@ function getPlayer2Score(){
     }
 
     function declareGameWinner(){
-     player1Score === 3?console.log(`${player1.name} has won the game`):console.log(`${player1.name} has won the game`);
+        player1Score === 3?console.log(`${player1.name} has won the game`):console.log(`${player1.name} has won the game`);
     }
 
 
@@ -146,18 +198,18 @@ function getPlayer2Score(){
     }
 
     function addToWinningPlayerScore(marker){
-         if (player1.marker === marker) {
-             setPlayer1Score();
-             let round = getRound();
-             console.log(`the winner of round ${round} was ${player1.name}`);
-             nextRound();
-         }
-         else {
-             setPlayer2Score();
-             let round = getRound();
-             console.log(`the winner of round ${round} was ${player2.name}`);
-             nextRound();
-         }
+        if (player1.marker === marker) {
+            setPlayer1Score();
+            let round = getRound();
+            console.log(`the winner of round ${round} was ${player1.name}`);
+            nextRound();
+        }
+        else {
+            setPlayer2Score();
+            let round = getRound();
+            console.log(`the winner of round ${round} was ${player2.name}`);
+            nextRound();
+        }
 
     }
 
@@ -221,15 +273,44 @@ function getPlayer2Score(){
     }
 
 
+    function chooseMarker(e){
+        let selectedMarker = e.target;
+
+
+        if(selectedMarker.classList.contains('selected') === false && selectedMarker.textContent === 'x'){
+
+            document.querySelector('.O').classList.remove('selected');
+            document.querySelector('.O').style = 'rgb(163, 73, 59)';
+            selectedMarker.style.background = 'rgb(255,255,255)';
+            selectedMarker.classList.add('selected');
+            console.log(selectedMarker.textContent);
+
+        }else if(selectedMarker.classList.contains('selected') === false && selectedMarker.textContent === 'o'){
+            document.querySelector('.X').classList.remove('selected');
+            document.querySelector('.X').style = 'rgb(163, 73, 59)';
+            selectedMarker.style.background = 'rgb(255,255,255)';
+            selectedMarker.classList.add('selected');
+            console.log( selectedMarker.textContent);
+
+        }else{
+
+            console.log(selectedMarker.textContent);
+
+        }
+    }
+
+
     function updateGameBoard(e){
-     whosTurnIsIt();
-     let selectedSpotIndex = parseInt(e.target.id.split("-")[1]);
-     let activePlayerMarker = activePlayer.marker;
-     let gameBoardSpot = e.target;
-     gameBoard.markPlayerMove(selectedSpotIndex,activePlayerMarker);
-     gameBoardSpot.classList.add("marked");
-     gameBoardSpot.removeEventListener('click',updateGameBoard);
-     determineRoundWinner(activePlayerMarker);
+        whosTurnIsIt();
+        let selectedSpotIndex = parseInt(e.target.id.split("-")[1]);
+        let activePlayerMarker = activePlayer.marker;
+        let gameBoardSpot = e.target;
+
+        gameBoard.markPlayerMove(selectedSpotIndex,activePlayerMarker);
+        gameBoardSpot.classList.add("marked");
+        gameBoardSpot.classList.add(`${activePlayerMarker.toUpperCase()}`)
+        gameBoardSpot.removeEventListener('click',updateGameBoard);
+        determineRoundWinner(activePlayerMarker);
     }
 
 
@@ -240,6 +321,7 @@ function getPlayer2Score(){
         getPlayer1Score,
         getPlayer2Score,
         updateGameBoard,
+        chooseMarker,
         replayGame
     }
 })()
@@ -252,37 +334,10 @@ function Player(name, marker){
     }
 }
 
-function chooseMarker(e){
-  let selectedMarker = e.target;
-
-
-  if(selectedMarker.classList.contains('selected') === false && selectedMarker.textContent === 'x'){
-
-      document.querySelector('.O').classList.remove('selected');
-      document.querySelector('.O').style = 'rgb(163, 73, 59)';
-      selectedMarker.style.background = 'rgb(255,255,255)';
-      selectedMarker.classList.add('selected');
-       console.log(selectedMarker.textContent);
-
-  }else if(selectedMarker.classList.contains('selected') === false && selectedMarker.textContent === 'o'){
-      document.querySelector('.X').classList.remove('selected');
-      document.querySelector('.X').style = 'rgb(163, 73, 59)';
-      selectedMarker.style.background = 'rgb(255,255,255)';
-      selectedMarker.classList.add('selected');
-      console.log( selectedMarker.textContent);
-
-  }else{
-
-     console.log(selectedMarker.textContent);
-
-  }
-
-
-
-}
-document.querySelector('.markerContainer').addEventListener('click',chooseMarker );
+// EventListener for when player chooses the marker that they would like to use and  click the start game button
 document.querySelector(".startBtn").addEventListener('click', gameController.startGame);
-// document.querySelector(".replayBtn").addEventListener('click', gameController.replayGame);
+document.querySelector('.markerContainer').addEventListener('click',gameController.chooseMarker);
+
 
 
 
