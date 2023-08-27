@@ -6,7 +6,7 @@ https://github.com/ddelimond/TicTacToe/assets/59320790/a66b27d2-2f4a-4dcf-934e-f
 
 
 <h1>Link</h1>
-<a href="https://ddelimond.github.io/myLibrary/">Interact with the Application Here!</a>
+<a href="https://ddelimond.github.io/TicTacToe/">Interact with the Application Here!</a>
 
 <h1>Features</h1>
 This site allows users to play a traditional game of Tic Tac Toe, the application is still a work in progress as it is only useable on Desktop/Laptop devices,  responsiveness for mobile is in progress 
